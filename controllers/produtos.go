@@ -11,8 +11,23 @@ import (
 var temp = template.Must(template.ParseGlob("templates/*.html"))
 
 func Index(w http.ResponseWriter, r *http.Request) {
+
+	temp.ExecuteTemplate(w, "Index", nil)
+
+}
+func Pegarchave(w http.ResponseWriter, r *http.Request) {
+
+	temp.ExecuteTemplate(w, "Pegarchave", nil)
+
+}
+func Login(w http.ResponseWriter, r *http.Request) {
+
+	temp.ExecuteTemplate(w, "Login", nil)
+
+}
+func Salas(w http.ResponseWriter, r *http.Request) {
 	todosOsProdutos := models.BuscaTodosProdutos()
-	temp.ExecuteTemplate(w, "Index", todosOsProdutos)
+	temp.ExecuteTemplate(w, "Salas", todosOsProdutos)
 
 }
 

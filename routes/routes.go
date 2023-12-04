@@ -13,4 +13,7 @@ func CarregaRotas() {
 	http.HandleFunc("/delete", controllers.Delete)
 	http.HandleFunc("/edit", controllers.Edit)
 	http.HandleFunc("/update", controllers.Update)
+	http.HandleFunc("/salas", controllers.Salas)
+	http.HandleFunc("/login", controllers.Login)
+	http.HandleFunc("/pegarchave", controllers.Pegarchave)
 }
