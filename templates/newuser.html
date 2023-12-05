@@ -1,0 +1,38 @@
+{{define "NewUser"}}
+
+{{template "_head"}}
+{{template "_navbar"}}
+    <body>
+        <div class="container">
+            <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                    <h1 class="display-5">Cadastro de Novo Usuário:</h1>
+                    <p class="lead">Insira os detalhes abaixo:</p>
+                </div>
+            </div>
+            <form method="POST" action="/newuser">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="username">Nome de Usuário:</label>
+                            <input type="text" name="username" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="password">Senha:</label>
+                            <input type="password" name="password" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Cadastrar</button>
+                <a class="btn btn-info" href="/">Voltar</a>
+            </form>
+        </div>
+       {{template "_footer"}}
+    </body>
+</html>
+
+{{end}}

@@ -16,4 +16,5 @@ func CarregaRotas() {
 	http.HandleFunc("/salas", controllers.Salas)
 	http.HandleFunc("/login", controllers.Login)
 	http.HandleFunc("/pegarchave", controllers.Pegarchave)
+	http.HandleFunc("/newuser", controllers.NewUser)
 }

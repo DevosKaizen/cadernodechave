@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"LOJAEMGO/models"
+	"fmt"
 	"log"
 	"net/http"
 	"strconv"
@@ -47,6 +48,9 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		preco := r.FormValue("preco")
 		quantidade := r.FormValue("quantidade")
 
+		username := r.FormValue("username")
+		password := r.FormValue("password")
+
 		precoConvertidoParaFloat, err := strconv.ParseFloat(preco, 64)
 		if err != nil {
 			log.Println("Erro na conversão do preço")
@@ -55,7 +59,18 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Println("Erro na conversão do quantidade")
 		}
+
+		errUsuario := models.CriarNovoUsuario(username, password)
+		if errUsuario != nil {
+			log.Println("Erro ao criar usuário:", errUsuario)
+			http.Error(w, "Erro ao criar usuário. Tente novamente mais tarde.", http.StatusInternalServerError)
+			log.Println("deu erro no controllers")
+			fmt.Println("deu erro no models")
+			return
+		}
+
 		models.CriarNovoProduto(nome, descricao, precoConvertidoParaFloat, quantidadeConvertidaParaInt)
+		models.CriarNovoUsuario(username, password)
 
 	}
 	http.Redirect(w, r, "/", 301)
@@ -121,4 +136,26 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	temp.ExecuteTemplate(w, "Login", 301)
+}
+func NewUser(w http.ResponseWriter, r *http.Request) {
+	// Se a solicitação for um POST, isso significa que o formulário foi enviado.
+	if r.Method == http.MethodPost {
+		// Recupere os valores do formulário.
+		username := r.FormValue("username")
+		password := r.FormValue("password")
+
+		// Crie um novo usuário no banco de dados.
+		err := models.CriarNovoUsuario(username, password)
+		if err != nil {
+			http.Error(w, "Erro ao criar usuário", http.StatusInternalServerError)
+			return
+		}
+
+		// Redirecione para a página de salas após a criação bem-sucedida.
+		http.Redirect(w, r, "/", http.StatusFound)
+		return
+	}
+
+	// Se a solicitação não for um POST, exiba a página de criação de usuário.
+	temp.ExecuteTemplate(w, "NewUser", nil)
 }
