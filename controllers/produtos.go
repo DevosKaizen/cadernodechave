@@ -127,7 +127,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		// Verificar senha - Lembre-se de usar um mecanismo de hash de senha na produção.
 		if user.Password == password {
 			// Autenticação bem-sucedida, pode redirecionar ou definir cookies/sessões.
-			http.Redirect(w, r, "/", http.StatusFound)
+			http.Redirect(w, r, "/salas", http.StatusFound)
 			return
 		}
 
