@@ -20,11 +20,12 @@ func Pegarchave(w http.ResponseWriter, r *http.Request) {
 	temp.ExecuteTemplate(w, "Pegarchave", nil)
 
 }
-func Login(w http.ResponseWriter, r *http.Request) {
 
-	temp.ExecuteTemplate(w, "Login", nil)
+// func Login(w http.ResponseWriter, r *http.Request) {
 
-}
+// 	temp.ExecuteTemplate(w, "Login", nil)
+
+// }
 func Salas(w http.ResponseWriter, r *http.Request) {
 	todosOsProdutos := models.BuscaTodosProdutos()
 	temp.ExecuteTemplate(w, "Salas", todosOsProdutos)
@@ -96,4 +97,28 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		models.AtualizaProduto(idConvertidaParaInt, nome, descricao, precoConvertidoParaFloat, quantidadeConvertidaParaInt)
 	}
 	http.Redirect(w, r, "/", 301)
+}
+func Login(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		username := r.FormValue("username")
+		password := r.FormValue("password")
+
+		user, err := models.GetUserByUsername(username)
+		if err != nil {
+			http.Error(w, "Usuário não encontrado", http.StatusUnauthorized)
+			return
+		}
+
+		// Verificar senha - Lembre-se de usar um mecanismo de hash de senha na produção.
+		if user.Password == password {
+			// Autenticação bem-sucedida, pode redirecionar ou definir cookies/sessões.
+			http.Redirect(w, r, "/", http.StatusFound)
+			return
+		}
+
+		http.Error(w, "Credenciais inválidas", http.StatusUnauthorized)
+		return
+	}
+
+	temp.ExecuteTemplate(w, "Login", 301)
 }

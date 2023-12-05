@@ -101,3 +101,20 @@ func AtualizaProduto(id int, nome, descricao string, preco float64, quantidade i
 	atualizaProduto.Exec(nome, descricao, preco, quantidade, id)
 	defer db.Close()
 }
+
+// USUARIOS
+
+type User struct {
+    ID       int
+    Username string
+    Password string
+}
+
+func GetUserByUsername(username string) (*User, error) {
+    db := db.ConectaCombancoDeDados()
+    defer db.Close()
+
+    var user User
+    err := db.QueryRow("SELECT id, username, password FROM users WHERE username = $1", username).Scan(&user.ID, &user.Username, &user.Password)
+    return &user, err
+}
