@@ -73,13 +73,13 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		models.CriarNovoUsuario(username, password)
 
 	}
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/salas", 301)
 }
 func Delete(w http.ResponseWriter, r *http.Request) {
 
 	idDoProduto := r.URL.Query().Get("id")
 	models.DeletaProduto(idDoProduto)
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/salas", 301)
 
 }
 func Edit(w http.ResponseWriter, r *http.Request) {
@@ -111,7 +111,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		}
 		models.AtualizaProduto(idConvertidaParaInt, nome, descricao, precoConvertidoParaFloat, quantidadeConvertidaParaInt)
 	}
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/salas", 301)
 }
 func Login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
@@ -152,7 +152,7 @@ func NewUser(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// Redirecione para a página de salas após a criação bem-sucedida.
-		http.Redirect(w, r, "/", http.StatusFound)
+		http.Redirect(w, r, "/login", http.StatusFound)
 		return
 	}
 
