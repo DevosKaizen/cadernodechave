@@ -3,6 +3,7 @@ package models
 import (
 	"LOJAEMGO/db"
 	"fmt"
+	"log"
 )
 
 type Produto struct {
@@ -54,14 +55,20 @@ func CriarNovoProduto(nome, descricao string, preco float64, quantidade int) {
 	defer db.Close()
 }
 func DeletaProduto(id string) {
-
+	fmt.Println("Em models Passou por delete")
 	db := db.ConectaCombancoDeDados()
-	deletarOProduto, err := db.Prepare("delete from produtos where id=$1")
+	log.Println("Passou por conecta banco de dados")
+	
+	deletarOProduto, err := db.Prepare("delete from produtos where id=$1") //https://pkg.go.dev/database/sql#DB.Prepare
 	if err != nil {
+		log.Println("deu erro no  entrou no if")
 		panic(err.Error())
 	}
+	log.Println("saiu do if")
 	deletarOProduto.Exec(id)
+	log.Println("exec delete")
 	defer db.Close()
+	log.Println("fechou o servidor com defer")
 
 }
 

@@ -76,11 +76,19 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/salas", 301)
 }
 func Delete(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println("Em controllers Passou por delete")
 	idDoProduto := r.URL.Query().Get("id")
+
+	// Verifica se o ID é um valor válido antes de continuar.
+	if idDoProduto == "" {
+		http.Error(w, "ID inválido", http.StatusBadRequest)
+		log.Println("Erro no delete")
+		return
+	}
+
 	models.DeletaProduto(idDoProduto)
 	http.Redirect(w, r, "/salas", 301)
-
+	fmt.Println("Em models saiu do delete")
 }
 func Edit(w http.ResponseWriter, r *http.Request) {
 	idDoProduto := r.URL.Query().Get("id")
@@ -99,15 +107,15 @@ func Update(w http.ResponseWriter, r *http.Request) {
 
 		idConvertidaParaInt, err := strconv.Atoi(id)
 		if err != nil {
-			log.Printf("Erro na converção do id para int: ", err)
+			log.Println("Erro na converção do id para int: ", err)
 		}
 		precoConvertidoParaFloat, err := strconv.ParseFloat(preco, 64)
 		if err != nil {
-			log.Printf("Erro na converção do preço para float64: ", err)
+			log.Println("Erro na converção do preço para float64: ", err)
 		}
 		quantidadeConvertidaParaInt, err := strconv.Atoi(quantidade)
 		if err != nil {
-			log.Printf("Erro na converção da quantidade para int: ", err)
+			log.Println("Erro na converção da quantidade para int: ", err)
 		}
 		models.AtualizaProduto(idConvertidaParaInt, nome, descricao, precoConvertidoParaFloat, quantidadeConvertidaParaInt)
 	}

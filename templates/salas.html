@@ -15,7 +15,7 @@
                         <tr>
                             <th>Prédio</th>
                             <th>Descrição</th>
-                            <th>Numero da sala</th>
+                            <th>Numero de sala</th>
                             <th>Chaves disponiveis</th>
                         </tr>
                     </thead>
@@ -26,7 +26,7 @@
                             <td>{{.Descricao}}</td>
                             <td>{{.Preco}}</td>
                             <td>{{.Quantidade}}</td>
-                            <!-- <td><a href="/delete?id={{.Id}}" class="btn btn-danger">Delete</a></td> -->
+                            <td><a href="/delete?id={{.Id}}" class="btn btn-danger">Delete</a></td>
                             <td><a href="edit?id={{.Id}}" class="btn btn-info">Editar</a></td>
                             <td><button onclick="onDelete('{{.Id}}')"class="btn btn-danger">Deletar</button></td>
                         </tr>
