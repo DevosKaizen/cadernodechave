@@ -65,7 +65,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 			log.Println("Erro ao criar usuário:", errUsuario)
 			http.Error(w, "Erro ao criar usuário. Tente novamente mais tarde.", http.StatusInternalServerError)
 			log.Println("deu erro no controllers")
-			fmt.Println("deu erro no models")
+
 			return
 		}
 
@@ -166,4 +166,10 @@ func NewUser(w http.ResponseWriter, r *http.Request) {
 
 	// Se a solicitação não for um POST, exiba a página de criação de usuário.
 	temp.ExecuteTemplate(w, "NewUser", nil)
+}
+
+func Users(w http.ResponseWriter, r *http.Request) {
+
+	temp.ExecuteTemplate(w, "Users", nil)
+
 }

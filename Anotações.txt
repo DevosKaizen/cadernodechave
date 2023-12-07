@@ -8,3 +8,11 @@ Alguns navegadores têm a capacidade de desabilitar o cache enquanto as ferramen
 3 - Mudar o Nome do Arquivo: 
 Renomear o arquivo salas.html para algo temporário, como salas_temp.html, e ver se as alterações são refletidas. Às vezes, o navegador pode armazenar em cache a versão de um arquivo específico.
 
+------------------------------------
+
+Estou criando a pagina de lista de usuarios , fazer:
+
+rotas
+funçao da pagina
+sinal de controle sql
+- DICA copiar do exibir salas
