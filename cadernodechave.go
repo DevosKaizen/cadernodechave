@@ -14,6 +14,6 @@ func main() {
 	// defer db.Close()
 	routes.CarregaRotas()
 
-	http.ListenAndServe(":8000", nil)
+	http.ListenAndServe("192.168.0.15:8000", nil)
 
 }
