@@ -20,15 +20,18 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <p>Salas</p>
                         {{range .}}
+                        
                         <tr>
                             <td>{{.Nome}}</td>
                             <td>{{.Descricao}}</td>
                             <td>{{.Preco}}</td>
                             <td>{{.Quantidade}}</td>
-                            <td><a href="/delete?id={{.Id}}" class="btn btn-danger">Delete</a></td>
+                            <td><a href="/deletaproduto?id={{.Id}}" class="btn btn-danger">Delete</a></td>
                             <td><a href="edit?id={{.Id}}" class="btn btn-info">Editar</a></td>
-                            <td><button onclick="onDelete('{{.Id}}')"class="btn btn-danger">Deletar</button></td>
+                            <!-- BUTTON ESTA COM PROBLEMA DESCOBIRI QUAL É -->
+                            <!-- <td><button onclick="onDelete('{{.Id}}')"class="btn btn-danger">Deletar</button></td> -->
                         </tr>
                         {{end}}
                     </tbody>

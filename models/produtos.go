@@ -59,7 +59,7 @@ func DeletaProduto(id string) {
 	db := db.ConectaCombancoDeDados()
 	log.Println("Passou por conecta banco de dados")
 
-	deletarOProduto, err := db.Prepare("delete from produtos where id=$1") //https://pkg.go.dev/database/sql#DB.Prepare
+	deletarOProduto, err := db.Prepare("delete from produtos where id=$1") //https://pkg.go.dev/database/sql#DB.Prepare <-- DOCUMENTAÇAO DO BANCO DE
 	if err != nil {
 		log.Println("deu erro no  entrou no if")
 		panic(err.Error())
@@ -109,4 +109,3 @@ func AtualizaProduto(id int, nome, descricao string, preco float64, quantidade i
 	atualizaProduto.Exec(nome, descricao, preco, quantidade, id)
 	defer db.Close()
 }
-

@@ -19,18 +19,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <p>Usuarios</p>
                         {{range .}}
+                        
                         <tr>
-                            <td>{{.Nome}}</td>
-                            <td>{{.Descricao}}</td>
+                            <!-- CADA VEZ QUE CRIO UMA SALA ELE CRIA 2 NOVOS USUARIOS EM BRANCO -->
+                            <td>{{.Username}}</td>
+                            <td>{{.Password}}</td>
                             <td></td>
                             <td></td>
                             <!-- fazer pagina de criaçao e conectar dados -->
-                            <td><a href="/delete?id={{.Id}}" class="btn btn-danger">Delete</a></td>
+                            <td><a href="/deletausuario?id={{.Id}}" class="btn btn-danger">Delete</a></td>
 
                             <!-- descobrir de onde vem o edit -->
                             <td><a href="edit?id={{.Id}}" class="btn btn-info">Editar</a></td>
-                            <td><button onclick="onDelete('{{.Id}}')"class="btn btn-danger">Deletar</button></td>
+                           <!-- BUTTON ESTA COM PROBLEMA DESCOBIRI QUAL É -->
+                            <!-- <td><button onclick="onDelete('{{.Id}}')"class="btn btn-danger">Deletar</button></td> -->
                         </tr>
                         {{end}}
                     </tbody>

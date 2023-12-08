@@ -3,12 +3,13 @@ package models
 import (
 	"LOJAEMGO/db"
 	"fmt"
+	"log"
 )
 
 // USUARIOS
 
 type User struct {
-	ID       int
+	Id       int
 	Username string
 	Password string
 }
@@ -16,16 +17,16 @@ type User struct {
 func GetUserByUsername(username string) (*User, error) {
 	db := db.ConectaCombancoDeDados()
 	defer db.Close()
-
+	// TENTEI UTILIZAR NEW COMO E NAO TEM O COMPORTAMENTO ESPERADO
 	var user User
-	err := db.QueryRow("SELECT id, username, password FROM users WHERE username = $1", username).Scan(&user.ID, &user.Username, &user.Password)
+	err := db.QueryRow("SELECT id, username, password FROM users WHERE username = $1", username).Scan(&user.Id, &user.Username, &user.Password)
 	return &user, err
 }
 
 // BuscaTodosUsuarios retorna todos os usuários cadastrados no banco de dados.
 func BuscaTodosUsuarios() []User {
 	db := db.ConectaCombancoDeDados()
-	selectTodosUsuarios, err := db.Query("SELECT * FROM users")
+	selectTodosUsuarios, err := db.Query("select * from users order by id asc")
 	if err != nil {
 		panic(err.Error())
 	}
@@ -41,7 +42,7 @@ func BuscaTodosUsuarios() []User {
 		if err != nil {
 			panic(err.Error())
 		}
-		u.ID = id
+		u.Id = id
 		u.Username = username
 		u.Password = password
 		usuarios = append(usuarios, u)
@@ -80,4 +81,21 @@ func CriarNovoUsuario(username, password string) error {
 
 	defer db.Close()
 	return nil
+}
+func DeletaUsuario(id string) {
+	fmt.Println("Chegou em models Passou por func DeletaUsuario(id string)")
+	db := db.ConectaCombancoDeDados()
+	log.Println("Passou por db.ConectaCombancoDeDados()")
+
+	deletarOUsuario, err := db.Prepare("delete from users where id=$1") //https://pkg.go.dev/database/sql#DB.Prepare <-- DOCUMENTAÇAO DO BANCO DE DADOS
+	if err != nil {
+		log.Println("deu erro no  entrou no if")
+		panic(err.Error())
+	}
+	log.Println("saiu do if")
+	deletarOUsuario.Exec(id)
+	log.Println("executou delete")
+	defer db.Close()
+	log.Println("fechou o servidor com defer, retorna a users")
+
 }

@@ -8,11 +8,24 @@ Alguns navegadores têm a capacidade de desabilitar o cache enquanto as ferramen
 3 - Mudar o Nome do Arquivo: 
 Renomear o arquivo salas.html para algo temporário, como salas_temp.html, e ver se as alterações são refletidas. Às vezes, o navegador pode armazenar em cache a versão de um arquivo específico.
 
+
 ------------------------------------
 
-Estou criando a pagina de lista de usuarios , fazer:
+SEQUENCIA PARA CRIAR PAGINAS
 
-rotas
-funçao da pagina
-sinal de controle sql
-- DICA copiar do exibir salas
+rotas (ROUTES)
+funçao da pagina (MODELS)
+sinal de controle sql (CONTROLS)
+bootstrap (HTML)
+
+-----------------------------------------
+
+07/12/23
+
+corrigi o problema com o delete creio que tenha aprendido a corrigir usando 
+o <a href> porem com a tag BUTTON nao consigo mais deletar 
+
+proximo passo é criar pagina de editar usuarios
+talvez umplementar nveis de ADM
+
+HABILITAR CHECK-IN E CHECK-OUT

@@ -62,8 +62,8 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 
 		errUsuario := models.CriarNovoUsuario(username, password)
 		if errUsuario != nil {
-			log.Println("Erro ao criar usuário:", errUsuario)
-			http.Error(w, "Erro ao criar usuário. Tente novamente mais tarde.", http.StatusInternalServerError)
+			log.Println("Erro ao criar usuario:", errUsuario)
+			http.Error(w, "Erro ao criar usuario. Tente novamente mais tarde.", http.StatusInternalServerError)
 			log.Println("deu erro no controllers")
 
 			return
@@ -75,13 +75,13 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 	}
 	http.Redirect(w, r, "/salas", 301)
 }
-func Delete(w http.ResponseWriter, r *http.Request) {
+func DeletaProduto(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Em controllers Passou por delete")
 	idDoProduto := r.URL.Query().Get("id")
 
-	// Verifica se o ID é um valor válido antes de continuar.
+	// Verifica se o ID é um valor valido antes de continuar.
 	if idDoProduto == "" {
-		http.Error(w, "ID inválido", http.StatusBadRequest)
+		http.Error(w, "ID invalido", http.StatusBadRequest)
 		log.Println("Erro no delete")
 		return
 	}
@@ -128,7 +128,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 		user, err := models.GetUserByUsername(username)
 		if err != nil {
-			http.Error(w, "Usuário não encontrado", http.StatusUnauthorized)
+			http.Error(w, "Usuario não encontrado", http.StatusUnauthorized)
 			return
 		}
 
@@ -139,37 +139,54 @@ func Login(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		http.Error(w, "Credenciais inválidas", http.StatusUnauthorized)
+		http.Error(w, "Credenciais invalidas", http.StatusUnauthorized)
 		return
 	}
 
 	temp.ExecuteTemplate(w, "Login", 301)
 }
 func NewUser(w http.ResponseWriter, r *http.Request) {
-	// Se a solicitação for um POST, isso significa que o formulário foi enviado.
+	// Se a solicitacao for um POST, isso significa que o formulario foi enviado
 	if r.Method == http.MethodPost {
-		// Recupere os valores do formulário.
+		// Recupere os valores do formulario
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 
-		// Crie um novo usuário no banco de dados.
+		// CRIAR um novo usuario no banco de dados
 		err := models.CriarNovoUsuario(username, password)
 		if err != nil {
-			http.Error(w, "Erro ao criar usuário", http.StatusInternalServerError)
+			http.Error(w, "Erro ao criar usuario", http.StatusInternalServerError)
 			return
 		}
 
-		// Redirecione para a página de salas após a criação bem-sucedida.
-		http.Redirect(w, r, "/login", http.StatusFound)
+		// Redirecione para a pagina de salas após a criacao bem-sucedida
+		http.Redirect(w, r, "/users", http.StatusFound)
 		return
 	}
 
-	// Se a solicitação não for um POST, exiba a página de criação de usuário.
+	// Se a solicitação não for um POST, exiba a pagina de criação de usuario
 	temp.ExecuteTemplate(w, "NewUser", nil)
 }
 
 func Users(w http.ResponseWriter, r *http.Request) {
 
-	temp.ExecuteTemplate(w, "Users", nil)
+	selectDeTodosUsuarios := models.BuscaTodosUsuarios()
 
+	temp.ExecuteTemplate(w, "Users", selectDeTodosUsuarios)
+
+}
+func DeletaUsuario(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Em controllers Passou por delete")
+	idUsuario := r.URL.Query().Get("id")
+
+	// Verifica se o ID é um valor valido antes de continuar.
+	if idUsuario == "" {
+		http.Error(w, "ID invalido", http.StatusBadRequest)
+		log.Println("Erro no delete")
+		return
+	}
+
+	models.DeletaUsuario(idUsuario)
+	http.Redirect(w, r, "/users", 301)
+	fmt.Println("Em Controllers saiu do delete vai pra modells")
 }
