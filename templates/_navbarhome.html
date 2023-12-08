@@ -1,20 +1,30 @@
 {{define "_navbarhome"}}
 
-<nav class="navbar navbar-light bg-light mb-4">
-    <div class="container">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Predio C3 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8EsPVz6az3_C0hIC4jZHq5DXG6lywpVkiKFR0CVUQkQ&s"  alt="logo c3" width="55" height="50" class="rounded-circle"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="float-left" id="navbarNav">
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="pegarchave">Pegar chave <img src="https://cdn-icons-png.flaticon.com/512/861/861841.png" alt="logo c3" width="55" height="50" ></a>
+            </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/users">Ver usuarios  <img src="https://png.pngtree.com/png-vector/20190909/ourmid/pngtree-outline-user-icon-png-image_1727916.jpg" alt="logo c3" width="55" height="50" class="rounded-circle"></a>
+        </li>
+       
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Log-in <img src="https://w7.pngwing.com/pngs/250/678/png-transparent-arrow-in-enter-basic-user-interface-icon.png" alt="logo c3" width="55" height="50" class="rounded-circle"></a>
+        </li>
         
-        <a class="navbar-toggler" href="/">Prédio C3
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8EsPVz6az3_C0hIC4jZHq5DXG6lywpVkiKFR0CVUQkQ&s" alt="logo c3" width="55" height="50">
-        </a>
-        <a class="navbar-toggler" href="pegarchave">Pegar chave
-            <img src="https://cdn-icons-png.flaticon.com/512/861/861841.png" alt="logo c3" width="55" height="50">
-          </a>
-
-        <a class="navbar-toggler" href="login">Login
-            <img src="https://w7.pngwing.com/pngs/250/678/png-transparent-arrow-in-enter-basic-user-interface-icon.png" alt="logo c3" width="55" height="50">
-          </a>
-      </div>
-    
+      </ul>
+    </div>
+  </div>
 </nav>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
 
 {{end}}
+
+
+
