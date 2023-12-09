@@ -4,6 +4,8 @@ import (
 	"LOJAEMGO/db"
 	"fmt"
 	"log"
+	"math/rand"
+	"time"
 )
 
 type Produto struct {
@@ -110,35 +112,85 @@ func AtualizaProduto(id int, nome, descricao string, preco float64, quantidade i
 	defer db.Close()
 }
 
+func ProxSala() Produto {
+	db := db.ConectaCombancoDeDados()
+	defer db.Close()
+
+	// Seed é importante para garantir que você obtenha números diferentes em cada execução
+	rand.Seed(time.Now().UnixNano())
+
+	// Gera um número aleatório entre 0 e 10
+	numeroAleatorio := rand.Intn(11) // Gera um número entre 0 e 10 (exclusivo)
+
+	fmt.Println(numeroAleatorio)
+
+	// Utiliza um prepared statement para evitar injeção de SQL
+	proxSala, err := db.Prepare("SELECT id, nome, descricao, preco FROM produtos WHERE id = $1")
+	if err != nil {
+		return Produto{}
+	}
+	defer proxSala.Close()
+
+	// Executa a query com o número aleatório como parâmetro
+	produto, err := proxSala.Query(numeroAleatorio)
+	if err != nil {
+		return Produto{}
+	}
+	defer produto.Close()
+
+	// Verifica se há linhas retornadas
+	if produto.Next() {
+		var p Produto
+		err := produto.Scan(&p.Id, &p.Nome, &p.Descricao, &p.Preco)
+		if err != nil {
+			return Produto{}
+		}
+		return p
+	}
+
+	// Caso não haja linhas retornadas, você pode retornar um erro indicando isso
+	return Produto{}
+}
+
 // Busca proxima sala
 
-func ProxSala() []Produto {
-	db := db.ConectaCombancoDeDados() // verificar se nao tem comando random sql
-	proxSala, err := db.Query("SELECT id, nome, descricao, preco FROM produtos ORDER BY id ASC")
-	if err != nil {
-		panic(err.Error())
-	}
+// func ProxSala() []Produto {
+// 	db := db.ConectaCombancoDeDados() // verificar se nao tem comando random sql
 
-	p := Produto{}
-	produtos := []Produto{}
+// 	// Seed é importante para garantir que você obtenha números diferentes em cada execução
+// 	rand.Seed(time.Now().UnixNano())
 
-	for proxSala.Next() {
-		var id int
-		var nome, descricao string
-		var preco float64
+// 	// Gera um número aleatório entre 0 e 10
+// 	numeroAleatorio := rand.Intn(11) // Gera um número entre 0 e 10 (exclusivo)
 
-		err = proxSala.Scan(&id, &nome, &descricao, &preco)
-		if err != nil {
-			panic(err.Error())
-		}
-		p.Id = id
-		p.Nome = nome
-		p.Descricao = descricao
-		p.Preco = preco
+// 	fmt.Println(numeroAleatorio)
 
-		produtos = append(produtos, p)
-	}
+// 	proxSala, err := db.Query("select *from produtos where id=$1", numeroAleatorio)
 
-	defer db.Close()
-	return produtos
-}
+// 	// proxSala, err := db.Query("SELECT id, nome, descricao, preco FROM produtos ORDER BY id ASC") BACKUP
+// 	if err != nil {
+// 		panic(err.Error())
+// 	}
+
+// 	p := Produto{}
+// 	produtos := []Produto{}
+
+// 	proxSala.Next()
+// 	var id int
+// 	var nome, descricao string
+// 	var preco float64
+
+// 	err = proxSala.Scan(&id, &nome, &descricao, &preco)
+// 	if err != nil {
+// 		panic(err.Error())
+// 	}
+// 	p.Id = id
+// 	p.Nome = nome
+// 	p.Descricao = descricao
+// 	p.Preco = preco
+
+// 	produtos = append(produtos, p)
+
+// 	defer db.Close()
+// 	return produtos
+// }
