@@ -109,3 +109,36 @@ func AtualizaProduto(id int, nome, descricao string, preco float64, quantidade i
 	atualizaProduto.Exec(nome, descricao, preco, quantidade, id)
 	defer db.Close()
 }
+
+// Busca proxima sala
+
+func ProxSala() []Produto {
+	db := db.ConectaCombancoDeDados() // verificar se nao tem comando random sql
+	proxSala, err := db.Query("SELECT id, nome, descricao, preco FROM produtos ORDER BY id ASC")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	p := Produto{}
+	produtos := []Produto{}
+
+	for proxSala.Next() {
+		var id int
+		var nome, descricao string
+		var preco float64
+
+		err = proxSala.Scan(&id, &nome, &descricao, &preco)
+		if err != nil {
+			panic(err.Error())
+		}
+		p.Id = id
+		p.Nome = nome
+		p.Descricao = descricao
+		p.Preco = preco
+
+		produtos = append(produtos, p)
+	}
+
+	defer db.Close()
+	return produtos
+}

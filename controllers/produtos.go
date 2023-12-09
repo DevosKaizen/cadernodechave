@@ -190,3 +190,9 @@ func DeletaUsuario(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/users", 301)
 	fmt.Println("Em Controllers saiu do delete vai pra modells")
 }
+
+func Checkin(w http.ResponseWriter, r *http.Request) {
+	proxSala := models.ProxSala()
+	temp.ExecuteTemplate(w, "Checkin", proxSala)
+
+}

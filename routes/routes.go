@@ -18,5 +18,6 @@ func CarregaRotas() {
 	http.HandleFunc("/pegarchave", controllers.Pegarchave)
 	http.HandleFunc("/newuser", controllers.NewUser)
 	http.HandleFunc("/users", controllers.Users)
-	http.HandleFunc("/deletausuario", controllers.DeletaUsuario) // verificar essa funçao
+	http.HandleFunc("/deletausuario", controllers.DeletaUsuario) // verificar essa funçao ok
+	http.HandleFunc("/checkin", controllers.Checkin)
 }

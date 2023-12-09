@@ -1,0 +1,28 @@
+{{define "Checkin"}}
+{{template "_head"}}
+
+{{template "_navbarhome"}}
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Check-in</h1>
+{{range .}}
+        <div class="alert alert-info">
+            <p>Próximo ID: {{.Nome}}</p>
+            <p>Próximo ID: {{.Descricao}}</p>
+            <p>Próximo ID: {{.Preco}}</p>
+        </div>
+{{end}}
+        <!-- Adicione o restante do seu conteúdo HTML aqui -->
+
+        <!-- Exemplo de botão para voltar à página inicial -->
+        <a href="/" class="btn btn-secondary">Voltar à Página Inicial</a>
+    </div>
+
+    <!-- Adicione os scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+
+{{end}}

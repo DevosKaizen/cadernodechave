@@ -2,6 +2,7 @@ package models
 
 import (
 	"LOJAEMGO/db"
+	"database/sql"
 	"fmt"
 	"log"
 )
@@ -52,18 +53,6 @@ func BuscaTodosUsuarios() []User {
 	return usuarios
 }
 
-// CriarNovoUsuario insere um novo usuário no banco de dados.
-// func CriarNovoUsuario(username, password string) {
-// 	db := db.ConectaCombancoDeDados()
-
-// 	insereUsuario, err := db.Prepare("insert into usuarios(username, password) VALUES($1, $2)")
-// 	if err != nil {
-// 		panic(err.Error())
-// 	}
-// 	insereUsuario.Exec(username, password)
-
-//		defer db.Close()
-//	}
 func CriarNovoUsuario(username, password string) error {
 	db := db.ConectaCombancoDeDados()
 
@@ -98,4 +87,15 @@ func DeletaUsuario(id string) {
 	defer db.Close()
 	log.Println("fechou o servidor com defer, retorna a users")
 
+}
+
+func GetNextProductID(db *sql.DB) (int, error) {
+	var nextID int
+	err := db.QueryRow("SELECT MAX(id) FROM produtos").Scan(&nextID)
+	if err != nil {
+		return 0, err
+	}
+	// Incrementar para obter o próximo ID
+	nextID++
+	return nextID, nil
 }
